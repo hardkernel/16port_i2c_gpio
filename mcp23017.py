@@ -109,8 +109,6 @@ def blink_led(mcp):
 
 def main(argv):
     gpio = 0
-    mcp = MCP23017(address = 0x20, dev_node=int(5))
-    mcp.config(gpio, mcp.OUTPUT)
 
     usage = " %prog I2CBUS blink"
     usage += "\n\t%prog I2CBUS -w GPIO [1|0]"
@@ -123,7 +121,9 @@ def main(argv):
             help="Read from GPIO", metavar="GPIO")
     (options, args) = parser.parse_args()
 
-    if int(args[0]) == 5 or int(args[0]) == 6:
+    dev_node=int(args[0])
+
+    if dev_node == 5 or dev_node == 6 or dev_node == 2 or dev_node == 3:
         i2c_bus = args[0]
         mcp = MCP23017(address = 0x20, dev_node=int(i2c_bus))
     else:
